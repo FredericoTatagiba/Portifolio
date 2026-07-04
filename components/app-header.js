@@ -1,9 +1,3 @@
-// components/app-header.js
-// Cabeçalho simples do site: apenas marca + tagline via atributos.
-//
-// Envolvido em IIFE porque os scripts são clássicos (sem módulos) e
-// compartilham o escopo global — sem isso, `TEMPLATE` colidiria com o
-// mesmo identificador declarado nos outros componentes.
 (function () {
 const TEMPLATE = document.createElement('template');
 TEMPLATE.innerHTML = `

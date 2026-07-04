@@ -1,22 +1,3 @@
-// components/project-carousel.js
-// Web Component responsável por orquestrar o carrossel lateral: busca os
-// repositórios (via github-api.js) e renderiza um <project-card> para cada um.
-// Também trata estados de carregamento, vazio e erro.
-//
-// Carrossel infinito: o conjunto de cards é renderizado 3x (antes/atual/depois)
-// e o scroll começa posicionado no início do conjunto do meio. Ao chegar perto
-// de uma borda, o scroll "salta" (sem animação) para a posição equivalente no
-// conjunto do meio — dá a ilusão de loop sem fim nas duas direções, tanto via
-// setas quanto arrastando/rolando manualmente.
-//
-// Script clássico: depende de `window.Portfolio.GitHubAPI` (definido em
-// js/github-api.js) e do custom element <project-card> (definido em
-// components/project-card.js) — ambos devem ser carregados antes deste
-// arquivo no index.html.
-//
-// Envolvido em IIFE porque os scripts são clássicos (sem módulos) e
-// compartilham o escopo global — sem isso, `TEMPLATE` colidiria com o
-// mesmo identificador declarado nos outros componentes.
 (function () {
 const { fetchRepositories, GitHubApiError } = window.Portfolio.GitHubAPI;
 
@@ -76,7 +57,6 @@ TEMPLATE.innerHTML = `
       color: var(--accent-color, #58a6ff);
     }
 
-    /* Sem projetos renderizados ainda (loading/erro/vazio): esconde as setas. */
     .carousel-container:has(.state-message) .nav-button {
       display: none;
     }
@@ -137,13 +117,6 @@ class ProjectCarousel extends HTMLElement {
     nextButton.addEventListener('click', () => scrollByCard(1));
   }
 
-  /**
-   * Observa a posição de rolagem e, ao se aproximar do início/fim dos
-   * conjuntos clonados, salta (sem animação) para a posição equivalente no
-   * conjunto do meio. Usa `scrollend` quando disponível (não dispara a cada
-   * frame do scroll); cai para um debounce do evento `scroll` em navegadores
-   * sem suporte.
-   */
   _setupInfiniteLoopCorrection() {
     const track = this.shadowRoot.querySelector('.carousel');
 
@@ -218,10 +191,6 @@ class ProjectCarousel extends HTMLElement {
   _renderProjects(container, repos) {
     container.innerHTML = '';
 
-    // 3 cópias do mesmo conjunto: permite rolar infinitamente para os dois
-    // lados (ver comentário de topo do arquivo). Os conjuntos clonados (antes/
-    // depois) ficam `aria-hidden` para leitores de tela não anunciarem os
-    // mesmos projetos três vezes.
     const MIDDLE_SET_INDEX = 1;
     for (let setIndex = 0; setIndex < 3; setIndex++) {
       const isCloneSet = setIndex !== MIDDLE_SET_INDEX;

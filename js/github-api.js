@@ -1,14 +1,7 @@
-// js/github-api.js
-// Serviço responsável exclusivamente por buscar e cachear os repositórios
-// públicos de um usuário do GitHub. Não conhece nada sobre DOM/UI.
-//
-// Script clássico (sem import/export) para funcionar também via file://.
-// Expõe sua API pública através de `window.Portfolio.GitHubAPI`; tudo o
-// mais fica isolado dentro da IIFE.
 (function () {
   const GITHUB_API_BASE = 'https://api.github.com';
   const CACHE_KEY_PREFIX = 'gh-repos-cache:';
-  const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hora
+  const CACHE_TTL_MS = 60 * 60 * 1000;
 
   class GitHubApiError extends Error {
     constructor(message, status) {
@@ -38,7 +31,6 @@
         JSON.stringify({ timestamp: Date.now(), data })
       );
     } catch {
-      // Armazenamento indisponível (modo privado, cota excedida etc.) — não é crítico.
     }
   }
 
@@ -56,11 +48,6 @@
     };
   }
 
-  /**
-   * Busca os repositórios públicos (não-fork) de um usuário, mais recentes primeiro.
-   * Usa cache em localStorage para reduzir chamadas à API pública do GitHub,
-   * que tem limite de 60 requisições/hora sem autenticação.
-   */
   async function fetchRepositories(username, { useCache = true } = {}) {
     if (useCache) {
       const cached = readCache(username);

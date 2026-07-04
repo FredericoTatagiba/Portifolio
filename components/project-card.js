@@ -1,10 +1,3 @@
-// components/project-card.js
-// Web Component responsável por exibir UM projeto. Não sabe de onde os dados
-// vêm — recebe tudo via atributos (single responsibility).
-//
-// Envolvido em IIFE porque os scripts são clássicos (sem módulos) e
-// compartilham o escopo global — sem isso, `TEMPLATE` colidiria com o
-// mesmo identificador declarado nos outros componentes.
 (function () {
 const TEMPLATE = document.createElement('template');
 TEMPLATE.innerHTML = `

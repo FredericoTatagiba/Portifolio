@@ -1,10 +1,3 @@
-// components/app-footer.js
-// Rodapé do site. Recebe o conteúdo via <slot> — mantém o componente genérico
-// e reutilizável, sem hardcode de texto/links.
-//
-// Envolvido em IIFE porque os scripts são clássicos (sem módulos) e
-// compartilham o escopo global — sem isso, `TEMPLATE` colidiria com o
-// mesmo identificador declarado nos outros componentes.
 (function () {
 const TEMPLATE = document.createElement('template');
 TEMPLATE.innerHTML = `

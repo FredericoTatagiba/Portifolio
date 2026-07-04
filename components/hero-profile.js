@@ -1,17 +1,3 @@
-// components/hero-profile.js
-// Web Component de apresentação: foto, nome, bio, especialidades e CTA para
-// o perfil do GitHub.
-//
-// Foto: usa `photo-url` se informado (ex.: uma imagem própria em assets/).
-// Caso contrário, cai para https://github.com/{user}.png, que não consome
-// cota da API REST (evita rate limit).
-//
-// Especialidades: lista separada por vírgula (atributo `specialties`),
-// renderizada como tags — pensada para stack, ferramentas ou áreas de foco.
-//
-// Envolvido em IIFE porque os scripts são clássicos (sem módulos) e
-// compartilham o escopo global — sem isso, `TEMPLATE` colidiria com o
-// mesmo identificador declarado nos outros componentes.
 (function () {
 const TEMPLATE = document.createElement('template');
 TEMPLATE.innerHTML = `
@@ -133,7 +119,6 @@ class HeroProfile extends HTMLElement {
     const avatar = root.querySelector('.avatar');
     avatar.src = photoUrl || (username ? `https://github.com/${username}.png` : '');
     avatar.alt = displayName ? `Foto de ${displayName}` : '';
-    // Se a foto customizada não existir (404), volta para o avatar do GitHub.
     avatar.onerror = () => {
       if (photoUrl && username && avatar.src !== `https://github.com/${username}.png`) {
         avatar.onerror = null;
